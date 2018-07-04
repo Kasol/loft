@@ -86,7 +86,8 @@ let exec_copy = (appName)=>{
 
 
 let runTask = async (ctx,next) => {
-    let appName = ctx.request.body.payload.repository.name;
+    let info = ctx.request.body.payload
+    let appName =JSON.parse(info).repository.name;
     let pull_res = await exec_pull(appName);
     let build_res = await exec_build(appName);
     let copy_res = await exec_copy(appName);
