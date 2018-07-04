@@ -92,6 +92,7 @@ let exec_copy = ()=>{
 module.exports= (router)=>{
     router.get('/',hook);
     router.post('/',runTask);
+    router.get('/test',test);
 }
 
 let hook = async (ctx,next) => {
@@ -105,4 +106,7 @@ let runTask = async (ctx,next) => {
     logger.info(ctx.request.body);
     return ctx.body = {code:200,message:'ok'}
 }
-
+let test = async (ctx,next) => {
+   
+    return ctx.body = {code:200,message:'test'}
+}
