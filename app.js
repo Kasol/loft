@@ -96,9 +96,9 @@ app.use(bodyParse());
 //控制器代码最好靠后放
 controller(app);
 
-let server=app.listen(6001);
+let server=app.listen(6001,config.host);
 
-console.log('server is running at 127.0.0.1:6001');
+console.log(`server is running at ${config.host}:6001`);
 
 
 
