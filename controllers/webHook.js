@@ -86,13 +86,22 @@ let exec_copy = (appName)=>{
 
 
 let runTask = async (ctx,next) => {
-    let info = ctx.request.body.payload
-    let appName =JSON.parse(info).repository.name;
-    let pull_res = await exec_pull(appName);
-    let build_res = await exec_build(appName);
-    let copy_res = await exec_copy(appName);
-    // logger.info(JSON.parse(info).repository);
-    return ctx.body = {code:200,message:'ok'}
+    try{
+        let info = ctx.request.body.payload;
+        let appName =JSON.parse(info).repository.name;
+        logger.info(appName);
+        let pull_res = await exec_pull(appName);
+        logger.info(pull_res);
+        let build_res = await exec_build(appName);
+        logger.info(build_res);
+        let copy_res = await exec_copy(appName);
+        logger.info(copy_res);
+
+        return ctx.body = {code:200,message:'ok'};
+    }catch(e){
+         logger.error(e.message);
+    }
+ 
 }
 let test = async (ctx,next) => {
    
