@@ -2,41 +2,21 @@ const spawn = require('child_process').spawn;
 const colors = require('colors');
 const path = require('path');
 const logger = require('../logger').logger;
+const STATICNAME = 'cdn';
 
 
 module.exports= (router)=>{
-    router.get('/',hook);
     router.post('/',runTask);
     router.get('/test',test);
 }
 
-let exec_cd = (appName)=>{
-    return new Promise((resolve,reject)=>{
-        // let args = 
-        let app_path = path.resolve(__dirname,'..','..','scorpio-ui');
-        let cd = spawn('cd',[app_path],{});
-
-        cd.stdout.on('data',function(data){
-           data = data;
-           console.log((data+'').green);
-        })
-        cd.stderr.on('data',function(data){
-            console.log((data+'').yellow);
-            reject({code:500});
-         })
-         cd.on('close',function(code){
-            console.log(('process exit with '+code).red);
-            resolve({code:200});
-
-         })
-    });
-}
 
 
-let exec_pull = ()=>{
+
+let exec_pull = (appName)=>{
     return new Promise((resolve,reject)=>{
         let pull = spawn('git',['pull'],{
-            cwd:path.resolve(__dirname,'..','..','scorpio-ui')
+            cwd:path.resolve(__dirname,'..','..',appName)
         });
 
         pull.stdout.on('data',function(data){
@@ -55,10 +35,10 @@ let exec_pull = ()=>{
 }
 
 
-let exec_build = ()=>{
+let exec_build = (appName)=>{
     return new Promise((resolve,reject)=>{
         let nrb = spawn('npm',['run','build'],{
-            cwd:path.resolve(__dirname,'..','..','scorpio-ui')
+            cwd:path.resolve(__dirname,'..','..',appName)
         });
 
         nrb.stdout.on('data',function(data){
@@ -76,37 +56,41 @@ let exec_build = ()=>{
     });
 }
 
-let exec_copy = ()=>{
+let exec_copy = (appName)=>{
     return new Promise((resolve,reject)=>{
-        const pwd = spawn('rm',['/Users/zhongzeming/Desktop/app.js'],{});
+        let cur_path = path.resolve(__dirname,'..','..',appName);
+        let packageInfo = fs.readFileSync(path.resolve(cur_path,'package.json'));
 
-        pwd.stdout.on('data',function(data){
+        let start_path = path.resolve(cur_path,'.build',packageInfo.name,packageInfo.version);
+        let end_path = path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name,packageInfo.version);
+        const copy = spawn('cp',['-r',start_path,end_path],{
+            cwd:path.resolve(__dirname,'..','..',appName)
+        });
+
+        copy.stdout.on('data',function(data){
            data = data+'ok';
            console.log((data+'').green);
         })
-        pwd.stderr.on('data',function(data){
+        copy.stderr.on('data',function(data){
             console.log((data+'').yellow);
          })
-        pwd.on('close',function(code){
+         copy.on('close',function(code){
             console.log(('process exit with '+code).red);
             resolve({code:200});
-
          })
     });
 }
 
 
 
-let hook = async (ctx,next) => {
-    let pull_res = await exec_pull();
-    let build_res = await exec_build();
-    logger.error({name:'zzm'});
-    return ctx.body = {code:200,message:'accept'}
-}
+
 
 let runTask = async (ctx,next) => {
-    let info = ctx.request.body.payload;
-    logger.info(JSON.parse(info).repository);
+    let appName = ctx.request.body.payload.repository.name;
+    let pull_res = await exec_pull(appName);
+    let build_res = await exec_build(appName);
+    let copy_res = await exec_copy(appName);
+    // logger.info(JSON.parse(info).repository);
     return ctx.body = {code:200,message:'ok'}
 }
 let test = async (ctx,next) => {
