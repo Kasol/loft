@@ -18,7 +18,7 @@ let exec_pull = (appName)=>{
         let pull = spawn('git',['pull'],{
             cwd:path.resolve(__dirname,'..','..',appName)
         });
-
+        logger.warn(path.resolve(__dirname,'..','..',appName));
         pull.stdout.on('data',function(data){
         //    data = data+'ok';
         //    console.log((data+'').green);
