@@ -1,0 +1,153 @@
+{% extends 'layout.html' %}
+{% block css %}
+  <link rel="stylesheet" href="/static/lib//suggestions.css" type="text/css">
+  {# <link rel="stylesheet" href="/static/css/apply/apply.css" type="text/css"> #}
+  <link rel='stylesheet' href={% remote "/apply/apply.css" %}  {% error %}  {% endremote %} type="text/css">
+
+
+{% endblock %}
+
+{% block body %}
+  <h3>注册应用</h3>
+  {# {% remote "/query/ssoKey" %}
+  This content will be replaced with the content from /stuff
+{% error %}
+  There was an error fetching /stuff
+{% endremote %} #}
+  <form class="form-horizontal" role="form">
+    <section class="base-info line-spa">
+      基本信息
+    </section>
+    <div class="form-group">
+      <label for="firstname" class="col-sm-1 control-label">应用名称</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="appname" placeholder="请输入应用名称">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">loftID</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="lastname" placeholder="请输入loftID">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">显示名称</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="lastname" placeholder="请输入显示名称">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">首页URL</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="lastname" placeholder="请输入首页URL">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">描述</label>
+      <div class="col-sm-5">
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">域名</label>
+      <div class="col-sm-5">
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+
+    <section class="owner line-spa">
+      责任人信息
+    </section>
+    <div class="form-group">
+      <label for="firstname" class="col-sm-1 control-label">所属部门</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="appname" placeholder="请输入所属部门">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">所属人名称</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="lastname" placeholder="请输入所属人名称">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">登录权限审批人</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="lastname" placeholder="请输入登录权限审批人">
+      </div>
+    </div>
+
+    <section class="config line-spa">
+      认证配置
+    </section>
+    <div class="form-group">
+      <label for="firstname" class="col-sm-1 control-label">认证方式</label>
+      <div class="col-sm-5">
+        <select class="form-control">
+          <option>密码</option>
+          <option>证书</option>
+          <option>双因子</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">是否允许QQ登录</label>
+      <div class="col-sm-5">
+        <select class="form-control">
+          <option>是</option>
+          <option>否</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-1 control-label">是否允许微信登录</label>
+      <div class="col-sm-5">
+        <select class="form-control">
+          <option>是</option>
+          <option>否</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-1 col-sm-10">
+        <button type="submit" class="btn btn-info">提交</button>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
+
+{% block js %}
+  <script src={% remote "/apply/apply.js" %}  {% error %}  {% endremote %}></script>
+  <script src="/static/lib//suggestions.js"></script>
+
+  <script>
+    $(document).ready(function () {
+       var data = [
+      'foo',
+      'bar',
+      'baz',
+      'qux',
+      'kasol',
+      '钟则鸣',
+      '那么斯文',
+      '钟摇哟啊'
+    ];
+      var target=[];
+      var $inputs = $('input');
+       
+         for (var i = 0; i < $inputs.length; i++) {
+          target[i] =new Suggestions($inputs[i], data, {
+          minLength: 1, // Number of characters typed into an input to trigger suggestions.
+          limit: 1000 //  Max number of results to display.
+        });
+      }
+
+
+    });
+ 
+  </script>
+
+{% endblock %}

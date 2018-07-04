@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>kasol</title>
+        <link rel="stylesheet" href="/static/lib/bootstrap.min.css" type="text/css">
+        {# <link rel="stylesheet" href="/static/css/login/login.css" type="text/css"> #}
+  <link rel='stylesheet' href={% remote "/login/login.css" %}  {% error %}  {% endremote %} type="text/css">
+
+        <link rel="stylesheet" href="/static/lib/animate.min.css" type="text/css">
+        <script src="/static/lib/jquery.min.js"></script>
+        <script src="/static/lib/bootstrap.min.js"></script>
+    </head>
+<body>   
+        <h1>{{title}}</h1>
+        {% if not is_online%}
+    <div class="login ">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="/ssoLogin" >
+                    登录
+                </a>
+            </li>
+             <li>
+                <a href="/ssoRegister" >注册</a>
+            </li>
+        </ul>
+            <div class="tab-content">
+                <div class="tab-pane  active" >
+                        <form  role="form" class='signin-form'>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <i></i>
+                                    <input name="name"  type="text" class="form-control " placeholder="用户名">
+                                </div>
+                                <div class="col-sm-10">
+                                        <i></i>
+                                    <input name="password" type="password" class="form-control " placeholder="密码">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="remeber">
+                                    <div class="col-sm-4">
+                                        <input id='remeber' type="checkbox"> <label for="remeber">记住我</label>
+                                    </div>
+                                    <label class="col-sm-8 problem">登录遇到问题?</label>
+                                </div>
+                            </div>
+                            <div class="form-group  signin">
+                                <div class="col-sm-10 ">
+                                    <input id="signin"  value="登录" class="btn btn-info  input-lg circle-btn">
+                                </div>
+                            </div>
+                        </form>
+                </div>
+               
+            </div>
+
+    </div>
+    {% endif %}
+
+<script src={%  remote '/login/login.js' %} {% error%}  {% endremote%}></script>
+{# <script src="/static/js/login/login.js"></script> #}
+</body>
+
+</html>

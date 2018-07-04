@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>kasol</title>
+        <link rel="stylesheet" href="/static/lib/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/static/css/login/login.css" type="text/css">
+        <link rel="stylesheet" href="/static/lib/animate.min.css" type="text/css">
+        <script src="/static/lib/jquery.min.js"></script>
+        <script src="/static/lib/bootstrap.min.js"></script>
+    </head>
+<body>   
+        <h1>{{title}}</h1>
+        {% if not is_online%}
+    <div class="register ">
+        <ul id="myTab" class="nav nav-tabs">
+          <li >
+                <a href="/ssoLogin" >
+                    登录
+                </a>
+            </li>
+            <li class="active">
+                <a href="/ssoRegister" >注册</a>
+            </li>
+        </ul>
+            <div  class="tab-content">
+                <div class="tab-pane active" id="register">
+                        <form  role="form" class='signup-form'>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <i></i>
+                                    <input name="name"  type="text" class="form-control " placeholder="你的昵称">
+                                </div>
+                                <div class="col-sm-10">
+                                        <i></i>
+                                    <input name="email" type="text" class="form-control " placeholder="邮箱">
+                                </div>
+                                <div class="col-sm-10">
+                                        <i></i>
+                                    <input name="password" type="password" class="form-control " placeholder="密码">
+                                </div>
+                            </div>
+
+                            <div class="form-group  signin">
+                                <div class="col-sm-10 ">
+                                    <input id="signup" value="注册" class="btn btn-success  input-lg circle-btn">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                    <div class="register-tip">
+                                        <label class="col-sm-10  ">点击注册则表示您遵守相关协议</label>
+                                    </div>
+                                </div>
+                        </form>
+                </div>
+            </div>
+
+    </div>
+    {% endif %}
+
+<script src="/static/js/register/register.js"></script>
+</body>
+
+</html>

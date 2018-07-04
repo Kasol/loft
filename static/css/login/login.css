@@ -1,0 +1,61 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #d2d2d2;
+}
+.login,.register{
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 500px;
+    height: 600px;
+    box-shadow: 0 0 3px 1px rgb(196, 186, 186);
+    background-color: #fff;
+}
+.nav-tabs>li>a,
+.nav-tabs>li>a:focus,
+.nav-tabs>li>a:hover{
+    color:rgb(94, 89, 88);
+    font-size: 16px;
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover{
+    color:rgb(241, 45, 19);
+}
+.login .tab-content,.register .tab-content{
+    margin-top: 50px;
+    margin-left: 67px;
+}
+.form-control{
+    border-radius: 0;
+}
+.signin {
+    margin-top: 50px;
+}
+.signin .btn{
+    border-radius: 50px;
+    width: 100%;
+    
+}
+.problem{
+    text-align: center;
+}
+.signin > div{
+    padding: 20px 10px;
+}
+.remeber > div, .remeber > label{
+   margin-top: 20px;
+}
+.register-tip{
+    text-align: center
+}
+.circle-btn:focus{
+	outline: none !important;
+}
