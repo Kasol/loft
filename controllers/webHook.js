@@ -1,6 +1,7 @@
 const spawn = require('child_process').spawn;
 const colors = require('colors');
 const path = require('path');
+const logger = require('../logger').logger;
 
 
 let exec_cd = (appName)=>{
@@ -90,10 +91,18 @@ let exec_copy = ()=>{
 
 module.exports= (router)=>{
     router.get('/',hook);
+    router.post('/',runTask);
 }
 
 let hook = async (ctx,next) => {
     let pull_res = await exec_pull();
     let build_res = await exec_build();
+    logger.error({name:'zzm'});
     return ctx.body = {code:200,message:'accept'}
 }
+
+let runTask = async (ctx,next) => {
+    logger.info(ctx.request.body);
+    return ctx.body = {code:200,message:'ok'}
+}
+
