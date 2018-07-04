@@ -4,6 +4,12 @@ const path = require('path');
 const logger = require('../logger').logger;
 
 
+module.exports= (router)=>{
+    router.get('/',hook);
+    router.post('/',runTask);
+    router.get('/test',test);
+}
+
 let exec_cd = (appName)=>{
     return new Promise((resolve,reject)=>{
         // let args = 
@@ -89,11 +95,7 @@ let exec_copy = ()=>{
     });
 }
 
-module.exports= (router)=>{
-    router.get('/',hook);
-    router.post('/',runTask);
-    router.get('/test',test);
-}
+
 
 let hook = async (ctx,next) => {
     let pull_res = await exec_pull();
@@ -103,7 +105,8 @@ let hook = async (ctx,next) => {
 }
 
 let runTask = async (ctx,next) => {
-    logger.info(ctx.request.body);
+    let info = ctx.request.body.payload;
+    logger.info(JSON.parse(info).repository);
     return ctx.body = {code:200,message:'ok'}
 }
 let test = async (ctx,next) => {
