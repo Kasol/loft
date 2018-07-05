@@ -93,9 +93,9 @@ let exec_copy = (appName)=>{
 
 let runTask = async (ctx,next) => {
     try{
-        // let info = ctx.request.body.payload || {};
-        // let appName =JSON.parse(info).repository.name || 'SSO-UI';
-        let appName = ctx.request.body.name;
+        let info = ctx.request.body.payload || {};
+        let appName =JSON.parse(info).repository.name || 'SSO-UI';
+        // let appName = ctx.request.body.name;
         logger.info(appName);
         let pull_res = await exec_pull(appName);
         logger.info(pull_res);
