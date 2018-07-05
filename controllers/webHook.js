@@ -64,10 +64,10 @@ let exec_copy = (appName)=>{
         packageInfo = JSON.parse(packageInfo.toString());
 
         let start_path = path.resolve(cur_path,'.build',packageInfo.name,packageInfo.version);
-        let end_path = path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name,packageInfo.version);
+        let end_path = path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name);
         if(!fs.existsSync(end_path)){
             fs.mkdirSync(path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name));
-            fs.mkdirSync(end_path);
+            // fs.mkdirSync(end_path);
         }
         const copy = spawn('cp',['-rf',start_path,end_path],{
             cwd:path.resolve(__dirname,'..','..',appName)
