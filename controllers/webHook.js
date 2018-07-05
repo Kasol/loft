@@ -106,7 +106,7 @@ let runTask = async (ctx,next) => {
 
         return ctx.body = {code:200,message:'ok'};
     }catch(e){
-         logger.error(e.message);
+         logger.error(e);
     }
  
 }
