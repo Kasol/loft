@@ -22,11 +22,11 @@ let exec_pull = (appName)=>{
         logger.warn(path.resolve(__dirname,'..','..',appName));
         pull.stdout.on('data',function(data){
         //    data = data+'ok';
-        //    console.log((data+'').green);
+           console.log((data+'').green);
         })
         pull.stderr.on('data',function(data){
             console.log((data+'').red);
-            reject({code:500});
+            // reject({code:500});
         })
         pull.on('close',function(code){
             console.log(('process exit with '+code).red);
@@ -47,7 +47,7 @@ let exec_build = (appName)=>{
            console.log((data+'').green);
         })
         nrb.stderr.on('data',function(data){
-            console.log((data+'').yellow);
+            console.log((data+'').red);
             // reject({code:500});
          })
         nrb.on('close',function(code){
@@ -74,11 +74,11 @@ let exec_copy = (appName)=>{
         });
 
         copy.stdout.on('data',function(data){
-           data = data+'ok';
+        //    data = data+'ok';
            console.log((data+'').green);
         })
         copy.stderr.on('data',function(data){
-            console.log((data+'').yellow);
+            console.log((data+'').red);
          })
          copy.on('close',function(code){
             console.log(('process exit with '+code).red);
