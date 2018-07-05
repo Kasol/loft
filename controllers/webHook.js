@@ -25,7 +25,7 @@ let exec_pull = (appName)=>{
         //    console.log((data+'').green);
         })
         pull.stderr.on('data',function(data){
-            // console.log((data+'').yellow);
+            console.log((data+'').red);
             reject({code:500});
         })
         pull.on('close',function(code){
