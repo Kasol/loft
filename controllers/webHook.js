@@ -3,6 +3,7 @@ const colors = require('colors');
 const path = require('path');
 const logger = require('../logger').logger;
 const STATICNAME = 'cdn';
+const fs = require('fs');
 
 
 module.exports= (router)=>{
@@ -60,10 +61,15 @@ let exec_copy = (appName)=>{
     return new Promise((resolve,reject)=>{
         let cur_path = path.resolve(__dirname,'..','..',appName);
         let packageInfo = fs.readFileSync(path.resolve(cur_path,'package.json'));
+        packageInfo = JSON.parse(packageInfo.toString());
 
         let start_path = path.resolve(cur_path,'.build',packageInfo.name,packageInfo.version);
         let end_path = path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name,packageInfo.version);
-        const copy = spawn('cp',['-r',start_path,end_path],{
+        if(!fs.existsSync(end_path)){
+            fs.mkdirSync(path.resolve(__dirname,'..','..',STATICNAME,packageInfo.name));
+            fs.mkdirSync(end_path);
+        }
+        const copy = spawn('cp',['-rf',start_path,end_path],{
             cwd:path.resolve(__dirname,'..','..',appName)
         });
 
@@ -87,8 +93,9 @@ let exec_copy = (appName)=>{
 
 let runTask = async (ctx,next) => {
     try{
-        let info = ctx.request.body.payload;
-        let appName =JSON.parse(info).repository.name;
+        // let info = ctx.request.body.payload || {};
+        // let appName =JSON.parse(info).repository.name || 'SSO-UI';
+        let appName = ctx.request.body.name;
         logger.info(appName);
         let pull_res = await exec_pull(appName);
         logger.info(pull_res);
